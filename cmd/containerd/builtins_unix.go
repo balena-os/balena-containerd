@@ -17,7 +17,7 @@
    limitations under the License.
 */
 
-package main
+package containerd
 
 import (
 	_ "github.com/containerd/containerd/snapshots/native/plugin"
