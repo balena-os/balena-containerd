@@ -14,7 +14,7 @@
    limitations under the License.
 */
 
-package main
+package containerd
 
 import (
 	"crypto"
@@ -34,7 +34,7 @@ func init() {
 	crypto.RegisterHash(crypto.SHA256, hasher.NewSHA256)
 }
 
-func main() {
+func Main() {
 	app := command.App()
 	if err := app.Run(os.Args); err != nil {
 		fmt.Fprintf(os.Stderr, "containerd: %s\n", err)

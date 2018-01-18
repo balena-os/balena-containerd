@@ -14,7 +14,7 @@
    limitations under the License.
 */
 
-package main
+package ctr
 
 import (
 	"crypto"
@@ -35,7 +35,7 @@ func init() {
 	crypto.RegisterHash(crypto.SHA256, hasher.NewSHA256)
 }
 
-func main() {
+func Main() {
 	app := app.New()
 	app.Commands = append(app.Commands, pluginCmds...)
 	if err := app.Run(os.Args); err != nil {

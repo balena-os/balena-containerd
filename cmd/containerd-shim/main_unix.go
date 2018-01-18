@@ -16,7 +16,7 @@
    limitations under the License.
 */
 
-package main
+package containerdShim
 
 import (
 	"bytes"
@@ -101,7 +101,7 @@ func setRuntime() {
 	}
 }
 
-func main() {
+func Main() {
 	parseFlags()
 	if versionFlag {
 		fmt.Println("containerd-shim")
