@@ -53,16 +53,17 @@ import (
 )
 
 var (
-	debugFlag            bool
-	versionFlag          bool
-	namespaceFlag        string
-	socketFlag           string
-	addressFlag          string
-	workdirFlag          string
-	runtimeRootFlag      string
-	criuFlag             string
-	systemdCgroupFlag    bool
-	containerdBinaryFlag string
+	debugFlag                 bool
+	versionFlag               bool
+	namespaceFlag             string
+	socketFlag                string
+	addressFlag               string
+	workdirFlag               string
+	runtimeRootFlag           string
+	criuFlag                  string
+	systemdCgroupFlag         bool
+	containerdBinaryFlag      string
+	containerdBinaryArgv0Flag string
 
 	bufPool = sync.Pool{
 		New: func() interface{} {
@@ -84,6 +85,7 @@ func parseFlags() {
 	// currently, the `containerd publish` utility is embedded in the daemon binary.
 	// The daemon invokes `containerd-shim -containerd-binary ...` with its own os.Executable() path.
 	flag.StringVar(&containerdBinaryFlag, "containerd-binary", "containerd", "path to containerd binary (used for `containerd publish`)")
+	flag.StringVar(&containerdBinaryArgv0Flag, "containerd-binary-argv0", "containerd", "argv0 to pass to containerd binary (used for `containerd publish`)")
 	flag.Parse()
 }
 
@@ -310,6 +312,7 @@ func (l *remoteEventsPublisher) Publish(ctx context.Context, topic string, event
 		return err
 	}
 	cmd := exec.CommandContext(ctx, containerdBinaryFlag, "--address", l.address, "publish", "--topic", topic, "--namespace", ns)
+	cmd.Args[0] = containerdBinaryArgv0Flag
 	cmd.Stdin = bytes.NewReader(data)
 	b := bufPool.Get().(*bytes.Buffer)
 	defer func() {
