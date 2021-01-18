@@ -16,7 +16,7 @@
    limitations under the License.
 */
 
-package main
+package containerdShimRuncV2
 
 import (
 	"context"
@@ -27,6 +27,6 @@ import (
 	"github.com/containerd/containerd/runtime/v2/shim"
 )
 
-func main() {
+func Main() {
 	shim.RunManager(context.Background(), manager.NewShimManager("io.containerd.runc.v2"))
 }
