@@ -16,13 +16,13 @@
    limitations under the License.
 */
 
-package containerdShimRuncV2
+package main
 
 import (
 	v2 "github.com/containerd/containerd/runtime/v2/runc/v2"
 	"github.com/containerd/containerd/runtime/v2/shim"
 )
 
-func Main() {
+func main() {
 	shim.Run("io.containerd.runc.v2", v2.New)
 }
