@@ -84,15 +84,16 @@ type Config struct {
 }
 
 var (
-	debugFlag            bool
-	versionFlag          bool
-	idFlag               string
-	namespaceFlag        string
-	socketFlag           string
-	bundlePath           string
-	addressFlag          string
-	containerdBinaryFlag string
-	action               string
+	debugFlag                 bool
+	versionFlag               bool
+	idFlag                    string
+	namespaceFlag             string
+	socketFlag                string
+	bundlePath                string
+	addressFlag               string
+	containerdBinaryFlag      string
+	containerdBinaryArgv0Flag string
+	action                    string
 )
 
 const (
