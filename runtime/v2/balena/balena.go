@@ -1,6 +1,12 @@
 package balena
 
-import "github.com/containerd/containerd/plugin"
+import (
+	"os"
+	"os/exec"
+	"path"
+
+	"github.com/containerd/containerd/plugin"
+)
 
 // DisableShimPlugins returns true if the plugin represented by r should be
 // disabled.
@@ -53,4 +59,21 @@ func DisableShimPlugins(r *plugin.Registration) bool {
 
 	// Filter out anything we don't want.
 	return !want
+}
+
+// Executable returns the absolute path to the executable binary or symlink used
+// to start the current process. This is similar to `os.Executable()`, but it's
+// guaranteed to not follow symlinks.
+//
+// The problem with following symlinks is that this breaks the amalgamated
+// balenaEngine binary. For example, if running from
+// `/usr/bin/balena-engine-containerd` (a symlink), `os.Executable()` would
+// return `/usr/bin/balena-engine` (the linked binary).
+//
+// This is not a general replacement for `os.Executable()`, though. In
+// particular, this implementation assumes the executable or symlink is present
+// somewhere in the $PATH.
+func Executable() (string, error) {
+	exeName := path.Base(os.Args[0])
+	return exec.LookPath(exeName)
 }
