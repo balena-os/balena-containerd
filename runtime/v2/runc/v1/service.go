@@ -36,6 +36,7 @@ import (
 	"github.com/containerd/containerd/api/types/task"
 	"github.com/containerd/containerd/errdefs"
 	"github.com/containerd/containerd/mount"
+	"github.com/containerd/containerd/runtime/v2/balena"
 	"github.com/containerd/containerd/namespaces"
 	"github.com/containerd/containerd/pkg/oom"
 	oomv1 "github.com/containerd/containerd/pkg/oom/v1"
@@ -107,7 +108,7 @@ func newCommand(ctx context.Context, id, containerdAddress, containerdTTRPCAddre
 	if err != nil {
 		return nil, err
 	}
-	self, err := os.Executable()
+	self, err := balena.Executable()
 	if err != nil {
 		return nil, err
 	}

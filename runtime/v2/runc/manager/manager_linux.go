@@ -36,6 +36,7 @@ import (
 	"github.com/containerd/containerd/oci"
 	"github.com/containerd/containerd/pkg/process"
 	"github.com/containerd/containerd/pkg/schedcore"
+	"github.com/containerd/containerd/runtime/v2/balena"
 	"github.com/containerd/containerd/runtime/v2/runc"
 	"github.com/containerd/containerd/runtime/v2/runc/options"
 	"github.com/containerd/containerd/runtime/v2/shim"
@@ -76,7 +77,7 @@ func newCommand(ctx context.Context, id, containerdAddress, containerdTTRPCAddre
 	if err != nil {
 		return nil, err
 	}
-	self, err := os.Executable()
+	self, err := balena.Executable()
 	if err != nil {
 		return nil, err
 	}

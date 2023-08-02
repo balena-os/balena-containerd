@@ -37,6 +37,7 @@ import (
 	"github.com/containerd/containerd/plugin"
 	"github.com/containerd/containerd/protobuf"
 	"github.com/containerd/containerd/runtime"
+	"github.com/containerd/containerd/runtime/v2/balena"
 	shimbinary "github.com/containerd/containerd/runtime/v2/shim"
 	"github.com/containerd/containerd/sandbox"
 	ocispec "github.com/opencontainers/image-spec/specs-go/v1"
@@ -328,7 +329,7 @@ func (m *ShimManager) resolveRuntimePath(runtime string) (string, error) {
 		if cmdPath, lerr = exec.LookPath(name); lerr != nil {
 			if eerr, ok := lerr.(*exec.Error); ok {
 				if eerr.Err == exec.ErrNotFound {
-					self, err := os.Executable()
+					self, err := balena.Executable()
 					if err != nil {
 						return "", err
 					}
